@@ -37,11 +37,13 @@ audio {
   top: 3em;
   bottom: 1em;
   z-index: -99999;
+  text-align: center;
 }
 
 video {
   display: block;
   height: 100%;
+  max-width: 100%;
 }
 
 .hidden {

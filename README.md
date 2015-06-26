@@ -16,6 +16,4 @@ or test locally by running
 $ npm install && npm start
 ```
 
-and navigate to [localhost:9000](http://localhost:9000). Currently the project
-uses the postMessage API for signaling, so there's no need to run, for example,
-a WebSocket server.
+and navigate to [localhost:9000](http://localhost:9000).

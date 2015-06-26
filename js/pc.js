@@ -103,12 +103,12 @@ pc.onicecandidate = function onicecandidate(event) {
   }
 };
 
-var createOfferConstraints = {};
+var offerAnswerConstraints = {};
 if (webrtcDetectedBrowser === 'firefox') {
-  createOfferConstraints.offerToReceiveAudio = true;
-  createOfferConstraints.offerToReceiveVideo = true;
+  offerAnswerConstraints.offerToReceiveAudio = true;
+  offerAnswerConstraints.offerToReceiveVideo = true;
 } else {
-  createOfferConstraints.mandatory = {
+  offerAnswerConstraints.mandatory = {
     OfferToReceiveAudio: true,
     OfferToReceiveVideo: true
   };
@@ -116,7 +116,7 @@ if (webrtcDetectedBrowser === 'firefox') {
 
 function createOffer(pc) {
   return new Promise(function(resolve, reject) {
-    pc.createOffer(resolve, reject, createOfferConstraints);
+    pc.createOffer(resolve, reject, offerAnswerConstraints);
   }).then(function(offer) {
     console.log('offer\n\n' + offer.sdp);
     return new Promise(function(resolve, reject) {
@@ -133,7 +133,7 @@ function createOffer(pc) {
 
 function createAnswer(pc) {
   return new Promise(function(resolve, reject) {
-    pc.createAnswer(resolve, reject);
+    pc.createAnswer(resolve, reject, offerAnswerConstraints);
   }).then(function(answer) {
     console.log('answer\n\n' + answer.sdp);
     return new Promise(function(resolve, reject) {

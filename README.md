@@ -5,9 +5,12 @@ This is a simple project for testing PeerConnection functionality. It provides
 enough scaffolding for you to negotiate and attach MediaStreams to the DOM, as
 well as supporting other functionality such as renegotiation.
 
-[peerconnection-experiments.herokuapp.com](https://peerconnection-experiments.herokuapp.com)
+Test at
 
-To test locally, run
+- [peerconnection-experiments.herokuapp.com](https://peerconnection-experiments.herokuapp.com)
+- [markandrus.github.io/peerconnection-experiments](https://markandrus.github.io/peerconnection-experiments/)
+
+or test locally by running
 
 ```
 $ npm install && npm start

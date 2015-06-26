@@ -195,6 +195,7 @@ function removeMediaStreamsContaining(kind, pc) {
   pc.getLocalStreams().forEach(function(mediaStream) {
     if (mediaStreamContains(kind, mediaStream)) {
       pc.removeStream(mediaStream);
+      mediaStream.stop();
     }
   });
 }

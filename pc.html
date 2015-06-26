@@ -1,0 +1,20 @@
+<html>
+<head>
+<meta charset="utf-8">
+<title>PeerConnection</title>
+<link rel="stylesheet" type="text/css" href="css/index.css">
+</head>
+<body id="pc">
+<input type="checkbox" id="share-audio" checked> Share Audio</input>
+<input type="checkbox" id="share-video" checked> Share Video</input>
+<button id="set-mediastreams">Set MediaStream(s)</button>
+<button id="create-offer">Create Offer</button>
+<div id="remote-div">
+  <audio id="remote-audio"></audio>
+  <video id="remote-video" class="hidden"></video>
+</div>
+<script src="js/adapter.js"></script>
+<script src="js/index.js"></script>
+<script src="js/pc.js"></script>
+</body>
+</html>

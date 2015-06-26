@@ -1,0 +1,49 @@
+* {
+  box-sizing: content-box;
+}
+
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+iframe {
+  border: 0;
+  height: 50%;
+  width: 100%;
+}
+
+#pc {
+  padding: 1em;
+}
+
+#pc.a {
+  background: rgba(255,0,0,0.5);
+}
+
+#pc.b {
+  background: rgba(0,0,255,0.5);
+}
+
+audio {
+  display: none;
+}
+
+#remote-div {
+  position: absolute;
+  left: 1em;
+  right: 1em;
+  top: 3em;
+  bottom: 1em;
+  z-index: -99999;
+}
+
+video {
+  display: block;
+  height: 100%;
+}
+
+.hidden {
+  display: none;
+}

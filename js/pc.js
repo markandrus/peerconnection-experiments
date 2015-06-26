@@ -5,8 +5,6 @@ var from = getFromQueryString(location.search, 'from')[0];
 var to = getFromQueryString(location.search, 'to')[0];
 var wsServer = getFromQueryString(location.search, 'ws')[0];
 
-document.querySelector('body').className += ' ' + from;
-
 var pc = new RTCPeerConnection();
 
 // Signaling

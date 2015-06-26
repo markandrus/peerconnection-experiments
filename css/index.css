@@ -14,16 +14,13 @@ iframe {
   width: 100%;
 }
 
+iframe + iframe {
+  border-top: 1px solid #ccc;
+  margin-top: -1px;
+}
+
 #pc {
   padding: 1em;
-}
-
-#pc.a {
-  background: rgba(255,0,0,0.5);
-}
-
-#pc.b {
-  background: rgba(0,0,255,0.5);
 }
 
 audio {

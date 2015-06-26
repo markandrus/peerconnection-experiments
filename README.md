@@ -5,7 +5,7 @@ This is a simple project for testing PeerConnection functionality. It provides
 enough scaffolding for you to negotiate and attach MediaStreams to the DOM, as
 well as supporting other functionality such as renegotiation.
 
-Test now at [markandrus.github.io/peerconnection-experiments](https://markandrus.github.io/peerconnection-experiments).
+Test now at [markandrus.github.io/peerconnection-experiments](https://markandrus.github.io/peerconnection-experiments/).
 
 To test locally, run
 

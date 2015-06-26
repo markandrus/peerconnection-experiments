@@ -10,7 +10,7 @@ Test now at [markandrus.github.io/peerconnection-experiments](https://markandrus
 To test locally, run
 
 ```
-$ python -m SimpleHTTPServer 9000
+$ npm install && npm start
 ```
 
 and navigate to [localhost:9000](http://localhost:9000). Currently the project

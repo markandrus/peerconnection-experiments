@@ -2,26 +2,23 @@
 
 var from = getFromQueryString(location.search, 'from')[0];
 var to = getFromQueryString(location.search, 'to')[0];
-var offerer = getFromQueryString(location.search, 'offerer')[0] === 'true';
+var wsServer = getFromQueryString(location.search, 'ws')[0];
 
 document.querySelector('body').className += ' ' + from;
+
+var pc = new RTCPeerConnection();
 
 // Signaling
 // ---------
 
-function sendMessage(msg, to) {
-  msg = {
-    from: from,
-    msg: msg
-  };
-  if (to) {
-    msg.to = to;
-  }
-  parent.postMessage(msg, '*');
+var sendMessage;
+if (wsServer) {
+  sendMessage = setupWebSocketSignalingClient(wsServer, from, onMessage.bind(null, pc));
+} else {
+  sendMessage = setupPostMessageSignalingClient(from, onMessage.bind(null, pc));
 }
 
-function onMessage(pc, event) {
-  var msg = event.data;
+function onMessage(pc, msg) {
   switch (msg.type) {
     case 'offer':
     case 'answer':
@@ -78,7 +75,11 @@ function onMessage(pc, event) {
       break;
     case 'candidate':
       new Promise(function(resolve, reject) {
-        pc.addIceCandidate(new RTCIceCandidate(msg.candidate), resolve, reject);
+        try {
+          pc.addIceCandidate(new RTCIceCandidate(msg.candidate), resolve, reject);
+        } catch (error) {
+          reject(error);
+        }
       }).catch(console.error.bind(console));
       break;
     default:
@@ -88,8 +89,6 @@ function onMessage(pc, event) {
 
 // PeerConnection
 // --------------
-
-var pc = new RTCPeerConnection();
 
 pc.onicecandidate = function onicecandidate(event) {
   var candidate = event.candidate;
@@ -104,8 +103,6 @@ pc.onicecandidate = function onicecandidate(event) {
     }, to);
   }
 };
-
-addEventListener('message', onMessage.bind(null, pc), false);
 
 var createOfferConstraints = {};
 if (webrtcDetectedBrowser === 'firefox') {
@@ -124,7 +121,11 @@ function createOffer(pc) {
   }).then(function(offer) {
     console.log('offer\n\n' + offer.sdp);
     return new Promise(function(resolve, reject) {
-      pc.setLocalDescription(offer, resolve.bind(null, offer), reject);
+      try {
+        pc.setLocalDescription(offer, resolve.bind(null, offer), reject);
+      } catch (error) {
+        reject(error);
+      }
     });
   }).then(function(offer) {
     return { type: offer.type, sdp: offer.sdp };
@@ -137,7 +138,11 @@ function createAnswer(pc) {
   }).then(function(answer) {
     console.log('answer\n\n' + answer.sdp);
     return new Promise(function(resolve, reject) {
-      pc.setLocalDescription(answer, resolve.bind(null, answer), reject);
+      try {
+        pc.setLocalDescription(answer, resolve.bind(null, answer), reject);
+      } catch (error) {
+        reject(error);
+      }
     });
   }).then(function(answer) {
     return { type: answer.type, sdp: answer.sdp };
@@ -146,7 +151,11 @@ function createAnswer(pc) {
 
 function setRemoteDescription(pc, sdp) {
   return new Promise(function(resolve, reject) {
-    pc.setRemoteDescription(new RTCSessionDescription(sdp), resolve, reject);
+    try {
+      pc.setRemoteDescription(new RTCSessionDescription(sdp), resolve, reject);
+    } catch (error) {
+      reject(error);
+    }
   });
 }
 

@@ -61,12 +61,13 @@ function setupPostMessageSignalingClient(from, onMessage) {
   return sendMessage;
 }
 
-function setupWebSocketSignalingClient(wsServer, from, onMessage) {
+function setupWebSocketSignalingClient(wsServer, room, from, onMessage) {
   var ws = new WebSocket(wsServer);
   var queue = [];
 
   function sendMessage(msg, to) {
     msg = {
+      room: room,
       from: from,
       msg: msg
     };
@@ -88,6 +89,9 @@ function setupWebSocketSignalingClient(wsServer, from, onMessage) {
 
   function _onMessage(event) {
     var msg = JSON.parse(event.data);
+    if (msg.room !== room) {
+      return;
+    }
     if (msg.to && msg.to !== from) {
       return;
     }

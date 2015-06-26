@@ -7,8 +7,8 @@ well as supporting other functionality such as renegotiation.
 
 Test at
 
-- [peerconnection-experiments.herokuapp.com](https://peerconnection-experiments.herokuapp.com)
-- [markandrus.github.io/peerconnection-experiments](https://markandrus.github.io/peerconnection-experiments/)
+- [peerconnection-experiments.herokuapp.com](https://peerconnection-experiments.herokuapp.com) (WebSocket or IFrames)
+- [markandrus.github.io/peerconnection-experiments](https://markandrus.github.io/peerconnection-experiments/) (IFrames-only)
 
 or test locally by running
 

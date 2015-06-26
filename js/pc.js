@@ -1,5 +1,6 @@
 'use strict';
 
+var room = getFromQueryString(location.search, 'room')[0];
 var from = getFromQueryString(location.search, 'from')[0];
 var to = getFromQueryString(location.search, 'to')[0];
 var wsServer = getFromQueryString(location.search, 'ws')[0];
@@ -13,7 +14,7 @@ var pc = new RTCPeerConnection();
 
 var sendMessage;
 if (wsServer) {
-  sendMessage = setupWebSocketSignalingClient(wsServer, from, onMessage.bind(null, pc));
+  sendMessage = setupWebSocketSignalingClient(wsServer, room, from, onMessage.bind(null, pc));
 } else {
   sendMessage = setupPostMessageSignalingClient(from, onMessage.bind(null, pc));
 }

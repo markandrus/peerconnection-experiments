@@ -47,3 +47,7 @@ video {
 .hidden {
   display: none;
 }
+
+#landing {
+  padding: 1em;
+}

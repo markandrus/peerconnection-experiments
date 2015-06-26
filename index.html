@@ -1,14 +1,41 @@
 <html>
 <head>
 <meta charset="utf-8">
-<title>PeerConnection Test</title>
+<title>PeerConnection Experiments</title>
 <link rel="stylesheet" type="text/css" href="css/index.css">
 </head>
-<body>
-<iframe src="pc.html?from=a&to=b" scrolling="no"></iframe>
-<iframe src="pc.html?from=b&to=a" scrolling="no"></iframe>
-<script src="js/index.js"></script>
-<script src="js/signaling.js"></script>
-<script src="js/server.js"></script>
+<body id="landing">
+<h1>PeerConnection Experiments</h1>
+<p>Test in a single browser using <a href="iframes.html">iframes</a>.</p>
+<script>
+function makeUUID() {
+  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+    var r = Math.random()*16|0, v = c == 'x' ? r : (r&0x3|0x8);
+    return v.toString(16);
+  });
+}
+
+function addWebSocketServerURLs(location) {
+  var room = makeUUID();
+  var wsProtocol = location.protocol === 'http:' ? 'ws:' : 'wss:';
+  var wsPort = Number(location.port);
+  var wsServer = wsProtocol + '//' + location.hostname + (wsPort ? ':' + wsPort : '');
+  var peerURL
+    = 'pc.html?room=' + room
+    + '&ws=' + encodeURIComponent(wsServer);
+  var p = document.querySelector('p');
+  p.innerHTML = p.innerHTML.replace(/\.$/, [
+    ', or test in two separate browsers using WebSockets:',
+    '<ul>',
+      '<li><a href="' + peerURL + '&from=A&to=B" target="_blank">Browser 1</a></li>',
+      '<li><a href="' + peerURL + '&from=B&to=A" target="_blank">Browser 2</a></li>',
+    '</ul>'
+  ].join(''));
+}
+
+if (!location.hostname.match(/github\.io$/)) {
+  addWebSocketServerURLs(location);
+}
+</script>
 </body>
 </html>

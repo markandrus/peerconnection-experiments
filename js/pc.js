@@ -89,17 +89,27 @@ function onMessage(pc, msg) {
 // PeerConnection
 // --------------
 
+pc.oniceconnectionstatechange = function oniceconnectionstatechange(event) {
+  console.log('iceConnectionState: ' + pc.iceConnectionState);
+};
+
+pc.onsignalingstatechange = function onsignalingstatechange(event) {
+  console.log('signalingState: ' + pc.signalingState);
+};
+
 pc.onicecandidate = function onicecandidate(event) {
   var candidate = event.candidate;
   if (candidate) {
-    sendMessage({
+    candidate = {
       type: 'candidate',
       candidate: {
         candidate: candidate.candidate,
         sdpMLineIndex: candidate.sdpMLineIndex,
         sdpMid: candidate.sdpMid
       }
-    }, to);
+    };
+    console.log(candidate);
+    sendMessage(candidate, to);
   }
 };
 
